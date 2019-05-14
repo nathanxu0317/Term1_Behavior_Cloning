@@ -1,8 +1,5 @@
 # **Behavioral Cloning** 
 
-## Writeup Template
-
-### You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
 
 ---
 
@@ -58,11 +55,28 @@ My model consists of a convolution neural network with 3x3 filter sizes and dept
 
 The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
 
+Layer (type)                     Output Shape          Param #     Connected to                     
+lambda_1 (Lambda)                (None, 160, 320, 3)   0           lambda_input_1[0][0]             
+cropping2d_1 (Cropping2D)        (None, 90, 320, 3)    0           lambda_1[0][0]                   
+Conv1 (Convolution2D)            (None, 43, 158, 24)   1824        cropping2d_1[0][0]               
+Conv2 (Convolution2D)            (None, 20, 77, 36)    21636       Conv1[0][0]                      
+Conv3 (Convolution2D)            (None, 8, 37, 48)     43248       Conv2[0][0]                      
+Conv4 (Convolution2D)            (None, 6, 35, 64)     27712       Conv3[0][0]                      
+Conv5 (Convolution2D)            (None, 4, 33, 64)     36928       Conv4[0][0]                      
+dropout_1 (Dropout)              (None, 4, 33, 64)     0           Conv5[0][0]                      
+flatten_1 (Flatten)              (None, 8448)          0           dropout_1[0][0]                  
+FC1 (Dense)                      (None, 100)           844900      flatten_1[0][0]                  
+FC2 (Dense)                      (None, 50)            5050        FC1[0][0]                        
+FC3 (Dense)                      (None, 10)            510         FC2[0][0]                        
+dense_1 (Dense)                  (None, 1)             11          FC3[0][0]                        
+
 #### 2. Attempts to reduce overfitting in the model
 
 The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+
+
 
 #### 3. Model parameter tuning
 
@@ -71,6 +85,11 @@ The model used an adam optimizer, so the learning rate was not tuned manually (m
 #### 4. Appropriate training data
 
 Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... 
+
+Collected the following sets of data:
+1. Normal driving, 2 laps
+2. Reverse direction driving, 1 lap
+3. Off-nominal driving (recovery lap), 1 lap
 
 For details about how I created the training data, see the next section. 
 
