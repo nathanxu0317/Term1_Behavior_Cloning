@@ -67,8 +67,6 @@ model.add(Dense(10, activation='elu', name='FC3'))
 model.add(Dense(1))
 model.summary()
 
-#------------------------------- model.load_weights('./nv/weights_lz_nv0_v1.h5')
-
 train_generator = gn.generator(train_samples)
 validation_generator = gn.generator(validation_samples)
 
