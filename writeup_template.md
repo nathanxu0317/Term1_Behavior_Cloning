@@ -51,9 +51,7 @@ The model.py file contains the code for training and saving the convolution neur
 
 #### 1. An appropriate model architecture has been employed
 
-My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
-
-The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
+The model configuration is given as below:
 
 Layer (type)                     Output Shape          Param #     Connected to                     
 lambda_1 (Lambda)                (None, 160, 320, 3)   0           lambda_input_1[0][0]             
@@ -72,21 +70,20 @@ dense_1 (Dense)                  (None, 1)             11          FC3[0][0]
 
 #### 2. Attempts to reduce overfitting in the model
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
+The model contains dropout layers in order to reduce overfitting.
+At the same time, for the first 3 Conv2D layer, 'subsample' has been set to (2,2), in order to avoid generate too many parameters.
+
+A large number of test data was used. (more than 15k images were used for model training). 
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
-
-
 #### 3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+The model used an adam optimizer, so the learning rate was not tuned manually to 0.0001.
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... 
-
-Collected the following sets of data:
+Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road. Below is a list of data collected:
 1. Normal driving, 2 laps
 2. Reverse direction driving, 1 lap
 3. Off-nominal driving (recovery lap), 1 lap
@@ -97,27 +94,20 @@ For details about how I created the training data, see the next section.
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
+The overall strategy for deriving a model architecture was to reproduce what NVIDIA did in this paper: https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/
 
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
+My first step was to use a convolution neural network model similar to the CNN used in that paper. I thought this model might be appropriate because the objective is very similar. In order to prevent overfitting, one dropout layer was added.
 
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
+In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my model had simialr mean squared error on both the training set and validation set. This indicates my model is working quite well. 
 
-To combat the overfitting, I modified the model so that ...
-
-Then I ... 
-
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
+The final step was to run the simulator to see how well the car was driving around track one. Initially there were a few spots where the vehicle fell off the track, to improve the driving behavior in these cases, I reclected more data with better driving, and also added a recovery lap. 
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
+
 #### 2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
-
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
-
-![alt text][image1]
+The final model architecture (model.py lines 54-68) consisted of a convolution neural network with details shown in above section. 
 
 #### 3. Creation of the Training Set & Training Process
 
@@ -146,3 +136,5 @@ After the collection process, I had X number of data points. I then preprocessed
 I finally randomly shuffled the data set and put Y% of the data into a validation set. 
 
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+
+
