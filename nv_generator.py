@@ -1,9 +1,3 @@
-"""
-Created on Sun Dec 3 2017
-
-@author: Trucker
-"""
-
 
 import cv2
 import numpy as np
@@ -83,12 +77,8 @@ def generator(samples, batch_size=4):
                 
                 image = random_brightness(image)
                 image = random_RGB(image)
-                image,angle = random_flip(image, angle)
-                
-                #===============================================================
-                # image = preprocess(image)
-                #===============================================================
-                
+                image,angle = random_flip(image, angle)                
+             
                 images.append(image)
                 angles.append(angle)  
 
