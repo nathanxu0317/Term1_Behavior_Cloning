@@ -15,13 +15,13 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[image1]: ./IMG_git/center_lane.jpg "Center line"
+[image2]: ./IMG_git/recovery1.jpg "Recovery1"
+[image3]: ./IMG_git/recovery2.jpg "Recovery2"
+[image4]: ./IMG_git/recovery3.jpg "Recovery3"
+[image5]: ./IMG_git/flipedbefore.jpg "Before flip"
+[image6]: ./IMG_git/flipedafter.jpg "After flip"
+
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -73,7 +73,7 @@ dense_1 (Dense)                  (None, 1)             11          FC3[0][0]
 The model contains dropout layers in order to reduce overfitting.
 At the same time, for the first 3 Conv2D layer, 'subsample' has been set to (2,2), in order to avoid generate too many parameters.
 
-A large number of test data was used. (more than 15k images were used for model training). 
+A large number of test data was used. (more than 50k images were used for model training). 
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
@@ -113,28 +113,24 @@ The final model architecture (model.py lines 54-68) consisted of a convolution n
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
 
-![alt text][image2]
+![alt text][image1]
 
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
 
+![alt text][image2]
 ![alt text][image3]
 ![alt text][image4]
-![alt text][image5]
-
-Then I repeated this process on track two in order to get more data points.
 
 To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
 
+![alt text][image5]
 ![alt text][image6]
-![alt text][image7]
-
-Etc ....
-
-After the collection process, I had X number of data points. I then preprocessed this data by ...
 
 
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
+After the collection process, I had 57870 of data points. I then preprocessed this data by randomly flipt the image left to right,  randomly adjust brightness of the image, and Randomly adjust RGB of the image. I then croped the top side of the image. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I finally randomly shuffled the data set and put 20% of the data into a validation set. 
+
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 10 as evidenced by continues decrease of loss. I used an adam optimizer so that manually training the learning rate wasn't necessary.
 
 
